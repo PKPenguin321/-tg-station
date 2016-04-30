@@ -196,10 +196,6 @@
 
 /obj/item/organ/internal/cyberimp/fistrocket/ui_action_click()
 	var/mob/living/carbon/H = owner
-	var/list/hands = get_both_hands(H)
-	var/M = locate(/obj/item/rocketstump) in hands
-	if(M)
-		hasfist = 0
 	if(H.incapacitated())
 		H << "<span class='warning'>You can't do that while you're incapacitated.</span>"
 		return
@@ -220,7 +216,7 @@
 	name = "rocket fist"
 	desc = "A metal fist with a thruster on the back."
 	icon_state = "rocketfist"//placeholder
-	item_state = "gun"//placeholder
+	item_state = "bomb"//placeholder
 	flags =  CONDUCT
 	w_class = 3
 	force = 5
@@ -231,9 +227,10 @@
 	if(thrusters && iscarbon(hit_atom))
 		thrusters = 0
 		var/mob/living/carbon/C = hit_atom
-		C.visible_message("<span class='danger'>[C] is hit by [src]!</span>", "<span class='userdanger'>[src] violently crashes into you!</span>")
+		C.visible_message("<span class='danger'>[C] is knocked down by [src]!</span>", "<span class='userdanger'>[src] violently crashes into you!</span>")
 		C.Weaken(3)
-		C.adjustBruteLoss(40)//todo: figure out how to make this respond to armor normally
+		var/armor_block = C.run_armor_check(null, "melee")
+		C.apply_damage(40, BRUTE, null, armor_block)
 		//when sprites are acquired this part will line will set their icon to remove the flames, signifying the thrusters are out
 	else if(thrusters && !iscarbon(hit_atom))
 		thrusters = 0
@@ -242,8 +239,9 @@
 /obj/item/rocketstump
 	name = "stump"
 	desc = "Without your metal fist, you are left with nothing but an unusable stump."
+	icon = 'icons/obj/weapons.dmi'
 	icon_state = "stump"//placeholder
-	item_state = "gun"//placeholder
+	item_state = "bomb"//placeholder
 	flags = NODROP | ABSTRACT
 	slot_flags = null
 	w_class = 5
@@ -258,4 +256,15 @@
 				implant.hasfist = 1
 			qdel(I)
 			qdel(src)
-
+	else if(istype(I, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = I
+		if(M.amount < 5)
+			user << "<span class='warning'>You need at least five metal sheets to make a new fist!</span>"
+			return
+		user << "<span class='notice'>You begin making a new fist for your stump...</span>"
+		if(do_after(user, 50, target = src))
+			M.use(5)
+			user << "<span class='notice'>You make a new fist for your stump.</span>"
+			for(var/obj/item/organ/internal/cyberimp/fistrocket/implant in user)
+				implant.hasfist = 1
+			qdel(src)
