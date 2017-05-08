@@ -184,13 +184,6 @@
 	cost = 1
 	item_path = /obj/item/clothing/neck/necklace/dope
 
-
-/datum/gang_item/equipment/emp
-	name = "EMP Grenade"
-	id = "EMP"
-	cost = 5
-	item_path = /obj/item/weapon/grenade/empgrenade
-
 /datum/gang_item/equipment/c4
 	name = "C4 Explosive"
 	id = "c4"
