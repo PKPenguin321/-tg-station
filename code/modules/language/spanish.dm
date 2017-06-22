@@ -1,11 +1,12 @@
 /datum/language/spanish
-	name = "Old Earth Spanish"
-	desc = "A less common Earth language that's survived the ages, thanks to being so widespread for its time."
+	name = "Galactic Uncommon"
+	desc = "Rumored to originate from an old Earth language, this language now only exists in the rare, small civilizations outside of Nanotrasen reach."
 	speech_verb = "says"
 	whisper_verb = "whispers"
-	key = "e"
+	key = "e"//e is for espanol
 	flags = TONGUELESS_SPEECH | LANGUAGE_HIDE_ICON_IF_UNDERSTOOD
 	default_priority = 100
+	space_chance = 70
 
 	icon_state = "spanish"
 

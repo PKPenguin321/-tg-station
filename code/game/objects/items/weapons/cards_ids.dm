@@ -314,3 +314,9 @@ update_label("John Doe", "Clowny")
 /obj/item/weapon/card/id/away/hotel/securty
 	name = "Officer ID"
 	access = list(GLOB.access_away_general, GLOB.access_away_maint, GLOB.access_away_sec)
+
+/obj/item/weapon/card/id/stowaway
+	name = "illegal ID"
+	desc = "An ID that lacks identification and only has an access strip. Obviously not made or condoned by Nanotrasen. Generally used by stowaways, they usually come with access to external and maintenance airlocks to allow the stowaway to get into the station."
+	access = list(GLOB.access_maint_tunnels, GLOB.access_external_airlocks)
+	icon_state = "illegal"
