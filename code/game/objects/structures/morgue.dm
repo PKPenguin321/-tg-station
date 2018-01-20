@@ -152,7 +152,8 @@
 			for(var/mob/living/M in compiled)
 				if(M.client && !M.suiciding)
 					icon_state = "morgue4" // Cloneable
-					playsound(src, 'sound/weapons/smg_empty_alarm.ogg', 50, 0)
+					if(M.stat == DEAD)
+						playsound(src, 'sound/weapons/smg_empty_alarm.ogg', 50, 0)
 					break
 
 /obj/item/paper/guides/jobs/medical/morgue
