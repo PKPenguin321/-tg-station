@@ -144,6 +144,7 @@
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
 #define ORGAN_SLOT_TAIL "tail"
 #define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
+#define ORGAN_SLOT_TEETH "abstract_teeth_holder"
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 	100
