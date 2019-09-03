@@ -146,6 +146,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
 	var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
 	var/obj/item/organ/tail/tail = C.getorganslot(ORGAN_SLOT_TAIL)
+	var/obj/item/organ/teeth = C.getorganslot(ORGAN_SLOT_TEETH)
 
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
@@ -157,6 +158,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_liver = !(TRAIT_NOMETABOLISM in inherent_traits)
 	var/should_have_stomach = !(NOSTOMACH in species_traits)
 	var/should_have_tail = mutanttail
+	var/should_have_teeth = TRUE//TODO: should this always be true? also, mutant teeth?
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
@@ -201,6 +203,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
+
+	if(teeth && (!should_have_teeth) || replace_current)
+		teeth.Remove(C,1)
+		QDEL_NULL(teeth)
+	if(should_have_teeth && !teeth)
+		teeth = new()
+		teeth.Insert(C,1,FALSE)
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)
